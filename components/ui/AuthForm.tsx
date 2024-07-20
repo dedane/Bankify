@@ -26,6 +26,7 @@ import CustomInput from '../CustomInput'
 
 const AuthForm = ({type}: {type: string}) => {
     const [user, setUser] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
      // 1. Define your form.
   const form = useForm<z.infer<typeof authformSchema>>({
     resolver: zodResolver(authformSchema),
@@ -39,7 +40,9 @@ const AuthForm = ({type}: {type: string}) => {
   function onSubmit(values: z.infer<typeof authformSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    setIsLoading(true)
     console.log(values)
+    setIsLoading(false)
   }
 
 
@@ -70,9 +73,10 @@ const AuthForm = ({type}: {type: string}) => {
 
         </div>): (<><Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
         <CustomInput control ={form.control} name='email' label='Email' placeholder='Enter your Email'/>
         <CustomInput control ={form.control} name='password' label='Password' placeholder='Enter your Password'/>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className='form-btn'>Submit</Button>
       </form>
     </Form></> )}
     </section>
