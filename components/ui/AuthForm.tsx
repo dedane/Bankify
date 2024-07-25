@@ -21,11 +21,14 @@ import { Input } from "@/components/ui/input"
 import { z } from "zod"
 import CustomInput from '../CustomInput'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { signIn, signUp } from '../../lib/actions/user.actions'
 
 
 
 
 const AuthForm = ({type}: {type: string}) => {
+    const router = useRouter();
     const [user, setUser] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const formSchema = authformSchema(type);
@@ -39,12 +42,26 @@ const AuthForm = ({type}: {type: string}) => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async(data: z.infer<typeof formSchema>) =>{
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    setIsLoading(true)
-    console.log(values)
+    //SIGN UP WITH Appwrite & create plaid token
+    if(type === 'sign-up'){
+      
+         const newUser = await signUp(data);
+        setUser(newUser);
+      }
+    if(type === 'sign-in') {
+        const response = await signIn({
+          email: data.email,
+          password: data.password
+        })
+        if(response) router.push('/') 
+      }
+      
     
+    setIsLoading(true)
+    console.log(data)
     setIsLoading(false)
   }
 
@@ -76,6 +93,24 @@ const AuthForm = ({type}: {type: string}) => {
 
         </div>): (<><Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {type === 'sign-up' && (
+          <>
+          <div className=' flex gap-4'>
+            <CustomInput control ={form.control} name='FirstName' label='FirstName' placeholder='Enter your FirstName'/>
+            <CustomInput control ={form.control} name='LastName' label='LastName' placeholder='Enter your LastName'/>
+          </div>
+          <CustomInput control ={form.control} name='address1' label='Address' placeholder='Enter your Address'/>
+          <CustomInput control ={form.control} name='city' label='City' placeholder='Enter your City'/>
+          <div className=' flex gap-4'>
+            <CustomInput control ={form.control} name='state' label='State' placeholder='Example Kiambu'/>
+            <CustomInput control ={form.control} name='postalCode' label='PostalCode' placeholder='Example 91022'/>
+          </div>
+          <div className=' flex gap-4'>
+            <CustomInput control ={form.control} name='dob' label='Date-Of-Birth' placeholder='yyyy-mm-dd'/>
+            <CustomInput control ={form.control} name='ssn' label='ssn' placeholder='ex: 1234'/>
+          </div>
+          </>
+        )}
 
         <CustomInput control ={form.control} name='email' label='Email' placeholder='Enter your Email'/>
         <CustomInput control ={form.control} name='password' label='Password' placeholder='Enter your Password'/>
