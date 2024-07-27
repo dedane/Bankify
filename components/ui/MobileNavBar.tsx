@@ -14,6 +14,8 @@ import { usePathname } from 'next/navigation'
 import Link from "next/link"
 import { sidebarLinks } from "../../constants"
 import { cn } from "@/lib/utils"
+import Footer from '../Footer'
+
 
 
 
@@ -83,15 +85,16 @@ return (
   </Link>
 )
 })}
-USER
+
                 </nav>
             </SheetClose>
+            <Footer user={user} type='mobile'/>
         </div>
-        FOOTER
+        
         
                 </SheetContent>
         </Sheet>
-
+        
     </section>
   )
 }
