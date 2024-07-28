@@ -31,6 +31,7 @@ const AuthForm = ({type}: {type: string}) => {
     const router = useRouter();
     const [user, setUser] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
+    
     const formSchema = authformSchema(type);
      // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,13 +44,15 @@ const AuthForm = ({type}: {type: string}) => {
  
   // 2. Define a submit handler.
   const onSubmit = async(data: z.infer<typeof formSchema>) =>{
+    setIsLoading(true)
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     //SIGN UP WITH Appwrite & create plaid token
+    try{
     if(type === 'sign-up'){
       const userData = {
-      firstName: data.FirstName!,
-      lastName: data.LastName!,
+      firstName: data.firstName!,
+      lastName: data.lastName!,
       address1: data.address1!,
       city: data.city!,
       state: data.state!,
@@ -71,9 +74,15 @@ const AuthForm = ({type}: {type: string}) => {
       }
       
     
+    }
+    catch(error){
+      console.log(error)
+    }
     
-    console.log(data)
-    setIsLoading(false)
+    finally{
+      setIsLoading(false)
+    }
+    
   }
 
 
@@ -107,8 +116,8 @@ const AuthForm = ({type}: {type: string}) => {
         {type === 'sign-up' && (
           <>
           <div className=' flex gap-4'>
-            <CustomInput control ={form.control} name='FirstName' label='FirstName' placeholder='Enter your FirstName'/>
-            <CustomInput control ={form.control} name='LastName' label='LastName' placeholder='Enter your LastName'/>
+            <CustomInput control ={form.control} name='firstName' label='FirstName' placeholder='Enter your FirstName'/>
+            <CustomInput control ={form.control} name='lastName' label='LastName' placeholder='Enter your LastName'/>
           </div>
           <CustomInput control ={form.control} name='address1' label='Address' placeholder='Enter your Address'/>
           <CustomInput control ={form.control} name='city' label='City' placeholder='Enter your City'/>
