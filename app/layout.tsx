@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 import { getLoggedInUser } from "../lib/actions/user.actions";
-import { RedirectStatusCode } from "next/dist/client/components/redirect-status-code";
+
 import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
@@ -25,7 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
+ 
   return (
     <html lang="en">
       <body className={`${inter.variable} ${ibmPlexSerif.variable}`}>{children}</body>

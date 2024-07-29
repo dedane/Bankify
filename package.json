@@ -1,5 +1,6 @@
 {
   "name": "bankify",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,7 +14,9 @@
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@sentry/nextjs": "^8.20.0",
     "chart.js": "^4.4.3",
+    "cjs": "^0.0.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
@@ -26,6 +29,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
+    "state": "^0.2.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
