@@ -49,7 +49,7 @@ const RightSideBar = async({user,banks}: RightSidebarProps) => {
               <BankCard 
                 key={banks[0].$id}
                 account={banks[0]}
-                userName={`${user.firstName} ${user.lastName}`}
+                userName={user.name}
                 showBalance={false}
               />
             </div>
@@ -58,7 +58,7 @@ const RightSideBar = async({user,banks}: RightSidebarProps) => {
                 <BankCard 
                   key={banks[1].$id}
                   account={banks[1]}
-                  userName={`${user.firstName} ${user.lastName}`}
+                  userName={user.name}
                   showBalance={false}
                 />
               </div>
