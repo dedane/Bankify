@@ -59,7 +59,7 @@ const AuthForm = ({type}: {type: string}) => {
         city: data.city!,
         state: data.state!,
         postalCode: data.postalCode!,
-        dateOfBirth: data.dob!,
+        dateOfBirth: data.dateOfBirth!,
         ssn: data.ssn!,
         email: data.email,
         password: data.password
@@ -105,15 +105,16 @@ const AuthForm = ({type}: {type: string}) => {
                 <h1 className="text-24 lg:text-36 font-semibold text-gray-900">
                     {user ? 'Link Account': type === 'sign-in' ?   'Sign In': 'Sign Up'}
                     <p className='text-16 font-normal text-gray-600'>
-                        { type === 'sign-in' ? 'Please enter your details' : 'Link your account to be started'   }
+                        { user ? 'Please enter your details' : 'Link your account to be started'   }
                     </p>
                 </h1>
             </div>
         </header>
         {user ? (
         <div className='flex flex-col gap-4'>
-          <PlaidLink  user={user} variant='primary'/>
-        </div>): (<><Form {...form}>
+          <PlaidLink  user={user} variant='primary' />
+        </div>): (<>
+        <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {type === 'sign-up' && (
           <>
@@ -128,7 +129,7 @@ const AuthForm = ({type}: {type: string}) => {
             <CustomInput control ={form.control} name='postalCode' label='PostalCode' placeholder='Example 91022'/>
           </div>
           <div className=' flex gap-4'>
-            <CustomInput control ={form.control} name='dob' label='Date-Of-Birth' placeholder='yyyy-mm-dd'/>
+            <CustomInput control ={form.control} name='dateOfBirth' label='Date-Of-Birth' placeholder='yyyy-mm-dd'/>
             <CustomInput control ={form.control} name='ssn' label='ssn' placeholder='ex: 1234'/>
           </div>
           </>

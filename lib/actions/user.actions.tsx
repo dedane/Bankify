@@ -26,8 +26,8 @@ export const signIn = async( { email, password }: signInProps) => {
         console.log('Error', error)
     }
 }
-export const signUp = async(userData: SignUpParams) => {
-    const {email, password, firstName, lastName} = userData
+export const signUp = async({password, ...userData }: SignUpParams)=> {
+    const {email,  firstName, lastName} = userData
 
     let newUserAccount;
     try{
@@ -106,7 +106,7 @@ export async function getLoggedInUser() {
         user: {
           client_user_id: user.$id
         },
-        client_name: user.name,
+        client_name: `${user.firstName} ${user.lastName}`,
         Products: ['auth'] as Products[],
         language: 'en',
         country_codes: ['US'] as CountryCode[],
@@ -148,7 +148,7 @@ export async function getLoggedInUser() {
     }
   }
 
-  export const exhangePublicToken = async({ publicToken,user,}: exchangePublicTokenProps) => {
+  export const exchangePublicToken = async({ publicToken,user,}: exchangePublicTokenProps) => {
     try {
       const response =await plaidClient.itemPublicTokenExchange({public_token:publicToken,})
       const accessToken = response.data.access_token;
