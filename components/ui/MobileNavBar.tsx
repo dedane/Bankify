@@ -51,7 +51,7 @@ const MobileNavBar = ({user}:MobileNavProps ) => {
               <h1 className='text-26 font-ibm-plex-serif font-bold text-black-1'>Horizon</h1>
         </Link>
         <div className="mobilenav-sheet">
-            <SheetClose asChild key={'item.route'}>
+            <SheetClose asChild >
                 <nav className="flex 
                 h-full 
                 flex-col
@@ -62,6 +62,7 @@ const MobileNavBar = ({user}:MobileNavProps ) => {
 
 const isActive = pathname === item.route || pathname.startsWith(`${item.route}/`)
 return (
+  <SheetClose asChild key={item.route}>
   <Link href={item.route} 
       key={item.label}
       className={cn
@@ -83,6 +84,7 @@ return (
         {item.label}
        </p>
   </Link>
+  </SheetClose>
 )
 })}
 
