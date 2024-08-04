@@ -138,7 +138,7 @@ const AuthForm = ({type}: {type: string}) => {
         <CustomInput control ={form.control} name='email' label='Email' placeholder='Enter your Email'/>
         <CustomInput control ={form.control} name='password' label='Password' placeholder='Enter your Password'/>
         <div className='flex flex-col gap-4'>
-                    <Button type="submit" className='form-btn'>{isLoading ? 
+                    <Button type="submit" disabled={isLoading} className='form-btn'>{isLoading ? 
                                             (
                                                   <><Loader2 size={20} 
                                                   className='animate-spin' />
