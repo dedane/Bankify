@@ -1,5 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { BankTabItem } from './ui/BankTabItem'
+import BankInfo from './ui/BankInfo'
+import TransactionsTable from './ui/TransactionsTable'
+
 
 const RecentTransactions = ({
     accounts,
@@ -13,11 +18,36 @@ const RecentTransactions = ({
             <h2 className='recent-transactions-label'>
                 recent transactions
             </h2>
-            {/* <Link>
-            </Link> */}
+            <Link href={`/transaction-history/?id=$(appwriteItemId)`}
+                className='view-all-btn'>
+                  view all
+            </Link> 
 
         </header>
-        RecentTransactions
+        <Tabs defaultValue={appwriteItemId} className="w-[400px]">
+          <TabsList>
+            {accounts.map((account: Account) => (<TabsTrigger key={account.id} value={account.appwriteItemId}>
+                <BankTabItem 
+                  key={account.id}
+                  account={account}
+                  appwriteItemId={appwriteItemId}/>
+            </TabsTrigger>))}
+          </TabsList>
+         {accounts.map((account: Account) =>(
+          <TabsContent
+            value={account.appwriteItemId}
+            key={account.id}
+            className='space-y-4'>
+              <BankInfo 
+              account={account}
+              appwriteItemId={appwriteItemId}
+              type='full'/>
+              <TransactionsTable
+                transactions={transactions}/>
+          </TabsContent>
+         ))}
+        </Tabs>
+
     </section>
   )
 }

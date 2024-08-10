@@ -37,7 +37,7 @@ async function Home({searchParams: {id, page}}: SearchParamProps) {
                     accounts={accountsData}
                     transactions={account?.transactions}
                     appwriteItemId={appwriteItemId}
-                    page={currentPage}/>
+                    page={currentPage} />
             </div>
             <RightSideBar
                 user={loggedIn}
