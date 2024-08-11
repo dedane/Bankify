@@ -10,14 +10,20 @@ async function Home({searchParams: {id, page}}: SearchParamProps) {
     
     const currentPage = Number(page as String) ||  1  
     const loggedIn = await getLoggedInUser();
-    const accounts = await getAccounts({userId: loggedIn.$id})
+    const accounts = await getAccounts({
+        userId: loggedIn.$id})
 
     if(!accounts) return
 
     const accountsData = accounts?.data
-    const appwriteItemId = (id as string) || accounts?.Data?.appwriteItemId;
+    const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
 
     const account = await getAccount({ appwriteItemId})
+
+    console.log({
+        accountsData,
+        account
+    })
     
     return (
         <section className='home'>
@@ -30,7 +36,7 @@ async function Home({searchParams: {id, page}}: SearchParamProps) {
                         subtext='Access and manage your account and transaction effectively' />
                     <TotalBalanceBox
                         accounts={accountsData}
-                        totalBank={accounts?.totalBanks}
+                        totalBanks={accounts?.totalBanks}
                         totalCurrentBalance={accounts?.totalCurrentBalance} />
                 </header>
                 <RecentTransactions 
